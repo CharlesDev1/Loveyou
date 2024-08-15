@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+        #popup1, #popup2 {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .yes-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .no-button {
+            background-color: #f44336;
+            color: white;
+        }
+        .next-button {
+            background-color: #008CBA;
+            color: white;
+        }
+        .love-icon {
+            font-size: 50px;
+            color: #ff4081;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .love-icon.burst {
+            transform: scale(2);
+            opacity: 0;
+        }
+        .instruction {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+        .popup-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="instruction">Klik ikon love di bawah ini!</div>
+    <span class="love-icon" id="loveIcon" onclick="showFirstPopup()">&#x2764;</span>
+
+    <div id="popup1">
+        <p>Aku mau bilang sesuatu, kamu jangan marah ya</p>
+        <button class="button next-button" onclick="showSecondPopup()">Next</button>
+    </div>
+
+    <div id="popup2">
+        <p>Maukah kamu jadi pacar aku?</p>
+        <div class="popup-buttons">
+            <button class="button no-button" onclick="sendAnswer('tidak')">Tidak</button>
+            <button class="button yes-button" onclick="sendAnswer('iya aku mau jadi pacar kamu')">Iya aku mau</button>
+        </div>
+    </div>
+
+    <script>
+        function showFirstPopup() {
+            const loveIcon = document.getElementById('loveIcon');
+            loveIcon.classList.add('burst');
+            setTimeout(() => {
+                document.getElementById('popup1').style.display = 'block';
+                loveIcon.style.display = 'none';
+                document.querySelector('.instruction').style.display = 'none';
+            }, 300); // Match this duration with the transition duration
+        }
+
+        function showSecondPopup() {
+            document.getElementById('popup1').style.display = 'none';
+            document.getElementById('popup2').style.display = 'block';
+        }
+
+        function sendAnswer(answer) {
+            var phoneNumber = '6285856915692';
+            var message = `${answer}`;
+            var url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            document.getElementById('popup2').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
